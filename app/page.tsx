@@ -1,46 +1,40 @@
 import Link from 'next/link';
 import { UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import { Camera, Zap, Shield, BarChart3, Globe, ArrowRight, Code } from 'lucide-react';
 
 export default function HomePage() {
     return (
-        <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white overflow-hidden">
+        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
+            {/* Background Decorative Elements */}
+            <div className="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+                <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-500/10 blur-[120px] rounded-full"></div>
+                <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-sky-500/10 blur-[120px] rounded-full"></div>
+            </div>
+
             {/* Navigation */}
-            <nav className="border-b border-gray-800 backdrop-blur-sm bg-gray-950/50 sticky top-0 z-50">
-                <div className="container max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="text-2xl">📸</div>
-                        <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                            Screenshot API
+            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+                <div className="container max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
+                            <Camera className="w-6 h-6 text-white" />
+                        </div>
+                        <span className="text-xl font-bold tracking-tight premium-gradient-text">
+                            SnapOG
                         </span>
                     </Link>
-                    <div className="flex items-center gap-6">
-                        <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">
-                            Pricing
-                        </Link>
-                        <Link href="/docs" className="text-gray-300 hover:text-white transition-colors">
-                            Docs
-                        </Link>
+
+                    <div className="hidden md:flex items-center gap-8">
+                        <Link href="/pricing" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
+                        <Link href="/docs" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
+                        <div className="h-4 w-px bg-white/10 mx-2"></div>
                         <SignedOut>
-                            <Link
-                                href="/sign-in"
-                                className="text-gray-300 hover:text-white transition-colors"
-                            >
-                                Sign In
-                            </Link>
-                            <Link
-                                href="/sign-up"
-                                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2.5 rounded-lg transition-all font-semibold shadow-lg shadow-blue-500/20"
-                            >
-                                Get Started Free
+                            <Link href="/sign-in" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Login</Link>
+                            <Link href="/sign-up" className="premium-button !py-2 !px-5 text-sm">
+                                Start Free
                             </Link>
                         </SignedOut>
                         <SignedIn>
-                            <Link
-                                href="/dashboard"
-                                className="text-gray-300 hover:text-white transition-colors"
-                            >
-                                Dashboard
-                            </Link>
+                            <Link href="/dashboard" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Dashboard</Link>
                             <UserButton afterSignOutUrl="/" />
                         </SignedIn>
                     </div>
@@ -48,207 +42,168 @@ export default function HomePage() {
             </nav>
 
             {/* Hero Section */}
-            <div className="container max-w-7xl mx-auto px-6 pt-20 pb-32 relative">
-                {/* Background decoration */}
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-blue-500/10 rounded-full blur-3xl -z-10"></div>
-
-                <div className="text-center mb-16">
-                    <div className="inline-block mb-6">
-                        <span className="bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full text-sm font-semibold border border-blue-500/20 animate-pulse">
-                            ✨ Beautiful Open Graph Images in Seconds
+            <section className="relative pt-44 pb-32">
+                <div className="container max-w-5xl mx-auto px-6 text-center">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-medium text-indigo-300 mb-8 animate-fade-in">
+                        <span className="relative flex h-2 w-2">
+                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
+                            <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                         </span>
+                        New: Edge-ready screenshot engine
                     </div>
-                    <h1 className="text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-cyan-200 bg-clip-text text-transparent leading-tight">
-                        Screenshot API for
-                        <br />
-                        Open Graph Images
+
+                    <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-[0.9] premium-gradient-text">
+                        The ultimate OG image engine.
                     </h1>
-                    <p className="text-2xl text-gray-400 max-w-3xl mx-auto mb-4">
-                        Generate beautiful preview images for any URL
-                    </p>
-                    <p className="text-xl text-gray-500 mb-12">
-                        توليد صور معاينة احترافية لأي رابط
+
+                    <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
+                        Generate breathtaking social preview images from any URL in milliseconds.
+                        Optimized for Facebook, Twitter, and LinkedIn.
                     </p>
 
-                    <div className="flex gap-4 justify-center mb-16">
-                        <Link
-                            href="/sign-up"
-                            className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-8 py-4 rounded-xl transition-all font-semibold text-lg shadow-xl shadow-blue-500/30 hover:scale-105"
-                        >
-                            Start Free Today →
+                    <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
+                        <Link href="/sign-up" className="premium-button text-lg flex items-center gap-2 w-full sm:w-auto">
+                            Get started free <ArrowRight className="w-5 h-5" />
                         </Link>
-                        <Link
-                            href="/pricing"
-                            className="bg-gray-800/50 hover:bg-gray-800 text-white px-8 py-4 rounded-xl transition-all font-semibold text-lg border border-gray-700"
-                        >
-                            View Pricing
+                        <Link href="/docs" className="px-8 py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-semibold w-full sm:w-auto">
+                            View Documentation
                         </Link>
                     </div>
 
-                    {/* Demo Screenshot */}
-                    <div className="relative max-w-4xl mx-auto">
-                        <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 rounded-2xl blur-2xl"></div>
-                        <div className="relative bg-gray-800/50 rounded-2xl p-6 border border-gray-700/50 backdrop-blur-sm">
-                            <div className="bg-gray-900 rounded-lg p-4 font-mono text-sm text-left">
-                                <div className="text-gray-500 mb-2">// Add to your website's &lt;head&gt;</div>
-                                <div className="text-green-400">&lt;meta property=<span className="text-yellow-400">"og:image"</span></div>
-                                <div className="text-green-400 ml-6">content=<span className="text-yellow-400">"https://your-api.vercel.app/api/screenshot?url=YOUR_URL"</span> /&gt;</div>
+                    {/* App Preview Container */}
+                    <div className="relative mx-auto mt-12 group">
+                        <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-sky-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+                        <div className="relative glass-card !rounded-[2rem] p-4 bg-black/60 shadow-2xl">
+                            <div className="border border-white/10 rounded-[1.5rem] overflow-hidden bg-white/5 p-6 md:p-12 text-left">
+                                <div className="flex items-center gap-2 mb-8">
+                                    <div className="w-3 h-3 rounded-full bg-red-500/50"></div>
+                                    <div className="w-3 h-3 rounded-full bg-yellow-500/50"></div>
+                                    <div className="w-3 h-3 rounded-full bg-green-500/50"></div>
+                                    <div className="ml-4 px-3 py-1 bg-white/5 rounded-lg border border-white/10 flex items-center gap-2 text-xs text-white/40">
+                                        <Code className="w-3.3 h-3.3" />
+                                        <span>https://api.snapog.com/v1/capture</span>
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 font-mono text-sm md:text-base">
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">1</span>
+                                        <span className="text-indigo-400">const</span> <span className="text-white">url</span> = <span className="text-sky-300">&quot;https://snapog.com/api/capture&quot;</span>;
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">2</span>
+                                        <span className="text-indigo-400">const</span> <span className="text-white">params</span> = <span className="text-white/60">&#123;</span>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">3</span>
+                                        <span className="pl-4 text-white">target</span>: <span className="text-sky-300">&quot;https://your-site.com&quot;</span>,
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">4</span>
+                                        <span className="pl-4 text-white">format</span>: <span className="text-sky-300">&quot;jpeg&quot;</span>,
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">5</span>
+                                        <span className="pl-4 text-white">delay</span>: <span className="text-white">500</span>
+                                    </div>
+                                    <div className="flex gap-4">
+                                        <span className="text-white/30">6</span>
+                                        <span className="text-white/60">&#125;</span>;
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </section>
 
             {/* Features Section */}
-            <div className="container max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold mb-4">Why Choose Us?</h2>
-                    <p className="text-xl text-gray-400">Everything you need for perfect social media previews</p>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-8 mb-20">
-                    {[
-                        {
-                            icon: '⚡',
-                            title: 'Lightning Fast',
-                            description: 'Screenshots generated in milliseconds with edge-optimized infrastructure and 30-day caching',
-                        },
-                        {
-                            icon: '🎨',
-                            title: 'Perfect Dimensions',
-                            description: '1200×630 pixels - optimized for all social platforms including Facebook, Twitter, and LinkedIn',
-                        },
-                        {
-                            icon: '🚫',
-                            title: 'Clean Output',
-                            description: 'Automatically blocks ads, cookie banners, and trackers for clean, professional screenshots',
-                        },
-                        {
-                            icon: '🔒',
-                            title: 'Secure & Reliable',
-                            description: 'Enterprise-grade security with 99.9% uptime SLA and SOC 2 compliance',
-                        },
-                        {
-                            icon: '📊',
-                            title: 'Analytics Dashboard',
-                            description: 'Track usage, monitor performance, and optimize your screenshot strategy in real-time',
-                        },
-                        {
-                            icon: '🌍',
-                            title: 'Global CDN',
-                            description: 'Distributed across 200+ edge locations worldwide for minimal latency anywhere',
-                        },
-                    ].map((feature, i) => (
-                        <div
-                            key={i}
-                            className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50 hover:border-blue-500/50 transition-all hover:scale-105 group"
-                        >
-                            <div className="text-5xl mb-4 group-hover:scale-110 transition-transform">{feature.icon}</div>
-                            <h3 className="text-2xl font-semibold mb-3">{feature.title}</h3>
-                            <p className="text-gray-400 leading-relaxed">{feature.description}</p>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* How It Works */}
-            <div className="container max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold mb-4">How It Works</h2>
-                    <p className="text-xl text-gray-400">Get started in 3 simple steps</p>
-                </div>
-
-                <div className="grid md:grid-cols-3 gap-12">
-                    {[
-                        {
-                            step: '1',
-                            title: 'Deploy the API',
-                            description: 'Deploy to Vercel for free in 2 minutes. No credit card required.',
-                            icon: '🚀',
-                        },
-                        {
-                            step: '2',
-                            title: 'Get Your URL',
-                            description: 'After deployment, you\'ll get a URL like https://your-api.vercel.app',
-                            icon: '🔗',
-                        },
-                        {
-                            step: '3',
-                            title: 'Add Meta Tags',
-                            description: 'Add the og:image meta tag to your website and you\'re done!',
-                            icon: '✨',
-                        },
-                    ].map((step, i) => (
-                        <div key={i} className="relative">
-                            <div className="bg-gradient-to-b from-blue-900/20 to-transparent rounded-2xl p-8 border border-blue-500/20">
-                                <div className="text-6xl mb-4">{step.icon}</div>
-                                <div className="text-blue-400 font-bold text-sm mb-2">STEP {step.step}</div>
-                                <h3 className="text-2xl font-bold mb-3">{step.title}</h3>
-                                <p className="text-gray-400">{step.description}</p>
-                            </div>
-                            {i < 2 && (
-                                <div className="hidden md:block absolute top-1/2 -right-6 text-4xl text-blue-500/30">→</div>
-                            )}
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Use Cases */}
-            <div className="container max-w-7xl mx-auto px-6 py-20">
-                <div className="text-center mb-16">
-                    <h2 className="text-5xl font-bold mb-4">Perfect For</h2>
-                    <p className="text-xl text-gray-400">Any website that wants beautiful link previews</p>
-                </div>
-
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    {[
-                        { title: 'Blogs & News', icon: '📰' },
-                        { title: 'E-commerce', icon: '🛍️' },
-                        { title: 'SaaS Products', icon: '💼' },
-                        { title: 'Portfolios', icon: '🎨' },
-                    ].map((useCase, i) => (
-                        <div key={i} className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50 text-center hover:border-blue-500/50 transition-all">
-                            <div className="text-4xl mb-3">{useCase.icon}</div>
-                            <h3 className="font-semibold text-lg">{useCase.title}</h3>
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* CTA Section */}
-            <div className="container max-w-7xl mx-auto px-6 py-20">
-                <div className="relative">
-                    <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-cyan-600/20 rounded-3xl blur-2xl"></div>
-                    <div className="relative bg-gradient-to-r from-blue-900/40 to-cyan-900/40 rounded-3xl p-16 border border-blue-500/20 text-center">
-                        <h2 className="text-5xl font-bold mb-6">Ready to Get Started?</h2>
-                        <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                            Join hundreds of developers using Screenshot API to create beautiful link previews
+            <section className="py-32 border-t border-white/5">
+                <div className="container max-w-6xl mx-auto px-6">
+                    <div className="text-center mb-24">
+                        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 premium-gradient-text">
+                            Built for heavy lifting.
+                        </h2>
+                        <p className="text-white/40 max-w-xl mx-auto">
+                            We handle everything from headless browser management to high-quality image compression.
                         </p>
-                        <div className="flex gap-4 justify-center">
-                            <Link
-                                href="/sign-up"
-                                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-10 py-4 rounded-xl transition-all font-semibold text-lg shadow-xl shadow-blue-500/30 hover:scale-105"
-                            >
-                                Start Free Today →
-                            </Link>
-                            <Link
-                                href="/pricing"
-                                className="bg-white/10 hover:bg-white/20 text-white px-10 py-4 rounded-xl transition-all font-semibold text-lg border border-white/20"
-                            >
-                                View Pricing
-                            </Link>
-                        </div>
-                        <p className="text-gray-400 mt-6">No credit card required • Free forever plan available</p>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            {
+                                icon: Zap,
+                                title: 'Insanely Fast',
+                                desc: 'Generated at the edge using global infrastructure to minimize latency.'
+                            },
+                            {
+                                icon: Shield,
+                                title: 'Reliable Infrastructure',
+                                desc: '99.9% uptime SLA with automatic failover and concurrent request handling.'
+                            },
+                            {
+                                icon: Globe,
+                                title: 'Global Coverage',
+                                desc: 'Pick from 20+ regions to capture content exactly as your users see it.'
+                            },
+                            {
+                                icon: Camera,
+                                title: 'Full-page Capture',
+                                desc: 'Perfectly render even the most complex JavaScript-heavy single page apps.'
+                            },
+                            {
+                                icon: BarChart3,
+                                title: 'Usage Analytics',
+                                desc: 'Monitor every single request with real-time dashboards and alerting.'
+                            },
+                            {
+                                icon: Code,
+                                title: 'Easy Integration',
+                                desc: 'Powerful REST API and SDKs for every major programming language.'
+                            }
+                        ].map((item, i) => (
+                            <div key={i} className="glass-card p-8 group hover:border-white/20 transition-all duration-500">
+                                <item.icon className="w-10 h-10 text-indigo-500 mb-6 group-hover:scale-110 transition-transform duration-500" />
+                                <h3 className="text-xl font-bold mb-3">{item.title}</h3>
+                                <p className="text-white/40 text-sm leading-relaxed">{item.desc}</p>
+                            </div>
+                        ))}
                     </div>
                 </div>
-            </div>
+            </section>
+
+            {/* Testimonial / Social Proof */}
+            <section className="py-24 bg-white/5 border-y border-white/5">
+                <div className="container max-w-4xl mx-auto px-6 text-center">
+                    <p className="text-2xl italic font-serif text-white/80 mb-8 leading-relaxed">
+                        &quot;SnapOG has completely transformed how our team handles link previews.
+                        The reliability and speed are unmatched in the industry.&quot;
+                    </p>
+                    <div className="flex items-center justify-center gap-4">
+                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-sky-500"></div>
+                        <div className="text-left">
+                            <p className="font-bold text-sm">Sarah Chen</p>
+                            <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">CTO at TechFlow</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             {/* Footer */}
-            <footer className="border-t border-gray-800 py-12">
-                <div className="container max-w-7xl mx-auto px-6 text-center text-gray-500">
-                    <p>Built with Next.js 14 • Edge Runtime • Screenshotone API</p>
-                    <p className="mt-2">© 2026 Screenshot API. All rights reserved.</p>
+            <footer className="py-20 border-t border-white/5 bg-black">
+                <div className="container max-w-6xl mx-auto px-6 text-center">
+                    <Link href="/" className="inline-flex items-center gap-3 mb-8">
+                        <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-lg flex items-center justify-center">
+                            <Camera className="w-5 h-5 text-white" />
+                        </div>
+                        <span className="text-lg font-bold premium-gradient-text">SnapOG</span>
+                    </Link>
+                    <p className="text-white/20 text-sm mb-8">&copy; 2026 SnapOG. All rights reserved.</p>
+                    <div className="flex justify-center gap-8 text-white/40 text-sm font-medium">
+                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+                        <Link href="mailto:support@snapog.com" className="hover:text-white transition-colors">Contact</Link>
+                    </div>
                 </div>
             </footer>
         </main>

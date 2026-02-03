@@ -3,6 +3,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 // Define routes that are publicly accessible (no auth required)
 const isPublicRoute = createRouteMatcher([
     '/',
+    '/(ar|en|fr)(.*)', // Match common locale prefixes
     '/sign-in(.*)',
     '/sign-up(.*)',
     '/pricing(.*)',
@@ -10,7 +11,11 @@ const isPublicRoute = createRouteMatcher([
     '/api(.*)',
 ]);
 
-export default clerkMiddleware();
+export default clerkMiddleware(async (auth, request) => {
+    if (!isPublicRoute(request)) {
+        await auth.protect();
+    }
+});
 
 export const config = {
     matcher: [

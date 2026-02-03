@@ -2,6 +2,7 @@ import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
+import { Camera, Key, BarChart3, Clock, ArrowUpRight, Plus, ExternalLink } from "lucide-react";
 
 export default async function DashboardPage() {
     const user = await currentUser();
@@ -13,152 +14,144 @@ export default async function DashboardPage() {
     const firstName = user.firstName || user.emailAddresses[0].emailAddress.split('@')[0];
 
     return (
-        <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white">
+        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
             {/* Navigation */}
-            <nav className="border-b border-gray-800 backdrop-blur-sm bg-gray-950/50">
-                <div className="container max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="text-2xl">📸</div>
-                        <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                            Screenshot API
+            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+                <div className="container max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center">
+                            <Camera className="w-6 h-6 text-white" />
+                        </div>
+                        <span className="text-xl font-bold tracking-tight premium-gradient-text">
+                            SnapOG
                         </span>
                     </Link>
+
                     <div className="flex items-center gap-6">
-                        <Link href="/dashboard" className="text-white font-semibold">
-                            Dashboard
-                        </Link>
-                        <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">
-                            Pricing
-                        </Link>
-                        <Link href="/docs" className="text-gray-300 hover:text-white transition-colors">
-                            Docs
-                        </Link>
+                        <Link href="/dashboard" className="text-sm font-medium text-white transition-colors">Dashboard</Link>
+                        <Link href="/pricing" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
                         <UserButton afterSignOutUrl="/" />
                     </div>
                 </div>
             </nav>
 
-            <div className="container max-w-7xl mx-auto px-6 py-12">
-                {/* Header */}
-                <div className="mb-12">
-                    <h1 className="text-4xl font-bold mb-2">Welcome back, {firstName}! 👋</h1>
-                    <p className="text-gray-400 text-lg">
-                        Here's your API usage overview
-                    </p>
-                </div>
-
-                {/* Stats Grid */}
-                <div className="grid md:grid-cols-3 gap-6 mb-12">
-                    <div className="bg-gradient-to-br from-blue-900/40 to-blue-900/10 rounded-2xl p-8 border border-blue-500/20">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="text-4xl">🔑</div>
-                            <div className="bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full text-sm font-semibold">
-                                Active
-                            </div>
+            <section className="pt-32 pb-20 px-6">
+                <div className="container max-w-7xl mx-auto">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                        <div>
+                            <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-2">Welcome back, {firstName}.</h1>
+                            <p className="text-white/40">Manage your API keys and monitor usage.</p>
                         </div>
-                        <h3 className="text-gray-400 text-sm font-semibold mb-2">API KEYS</h3>
-                        <p className="text-4xl font-bold mb-2">0</p>
-                        <p className="text-sm text-gray-500">No keys created yet</p>
-                    </div>
-
-                    <div className="bg-gradient-to-br from-green-900/40 to-green-900/10 rounded-2xl p-8 border border-green-500/20">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="text-4xl">📊</div>
-                            <div className="bg-green-500/20 text-green-400 px-3 py-1 rounded-full text-sm font-semibold">
-                                This Month
-                            </div>
-                        </div>
-                        <h3 className="text-gray-400 text-sm font-semibold mb-2">USAGE</h3>
-                        <p className="text-4xl font-bold mb-2">0 / 100</p>
-                        <div className="w-full bg-gray-800 rounded-full h-2 mb-2">
-                            <div className="bg-gradient-to-r from-green-500 to-green-400 h-2 rounded-full" style={{ width: '0%' }}></div>
-                        </div>
-                        <p className="text-sm text-gray-500">100 requests remaining</p>
-                    </div>
-
-                    <div className="bg-gradient-to-br from-purple-900/40 to-purple-900/10 rounded-2xl p-8 border border-purple-500/20">
-                        <div className="flex items-center justify-between mb-4">
-                            <div className="text-4xl">💎</div>
-                            <Link
-                                href="/pricing"
-                                className="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-sm font-semibold hover:bg-purple-500/30 transition-colors"
-                            >
-                                Upgrade
-                            </Link>
-                        </div>
-                        <h3 className="text-gray-400 text-sm font-semibold mb-2">CURRENT PLAN</h3>
-                        <p className="text-4xl font-bold mb-2">Free</p>
-                        <p className="text-sm text-gray-500">100 requests/month</p>
-                    </div>
-                </div>
-
-                {/* Quick Actions */}
-                <div className="grid md:grid-cols-2 gap-6 mb-12">
-                    <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50">
-                        <div className="flex items-start gap-4 mb-6">
-                            <div className="text-5xl">🚀</div>
-                            <div>
-                                <h2 className="text-2xl font-semibold mb-2">Create Your First API Key</h2>
-                                <p className="text-gray-400 mb-4">
-                                    Generate an API key to start making screenshot requests
-                                </p>
-                            </div>
-                        </div>
-                        <button className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-500/20 w-full">
-                            Create API Key
+                        <button className="premium-button flex items-center gap-2">
+                            <Plus className="w-5 h-5" /> Generate New Key
                         </button>
                     </div>
 
-                    <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50">
-                        <div className="flex items-start gap-4 mb-6">
-                            <div className="text-5xl">📚</div>
-                            <div>
-                                <h2 className="text-2xl font-semibold mb-2">Read the Documentation</h2>
-                                <p className="text-gray-400 mb-4">
-                                    Learn how to integrate the Screenshot API into your project
+                    {/* Stats Grid */}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                        {[
+                            { label: 'Total Requests', value: '1,284', icon: BarChart3, trend: '+12.5%' },
+                            { label: 'Active Keys', value: '3', icon: Key, trend: 'Healthy' },
+                            { label: 'Median Latency', value: '42ms', icon: Clock, trend: '-4ms' },
+                            { label: 'Platform Status', value: 'Online', icon: ExternalLink, trend: '99.9%' },
+                        ].map((stat, i) => (
+                            <div key={i} className="glass-card p-6">
+                                <div className="flex items-center justify-between mb-4">
+                                    <div className="p-2.5 bg-white/5 rounded-lg border border-white/10">
+                                        <stat.icon className="w-5 h-5 text-indigo-400" />
+                                    </div>
+                                    <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${stat.trend.startsWith('+') ? 'text-green-400 bg-green-400/10' :
+                                            stat.trend.startsWith('-') ? 'text-blue-400 bg-blue-400/10' :
+                                                'text-indigo-400 bg-indigo-400/10'
+                                        }`}>
+                                        {stat.trend}
+                                    </span>
+                                </div>
+                                <p className="text-white/40 text-sm font-medium uppercase tracking-wider mb-1">{stat.label}</p>
+                                <h3 className="text-3xl font-bold">{stat.value}</h3>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="grid lg:grid-cols-3 gap-8">
+                        {/* API Keys Table */}
+                        <div className="lg:col-span-2 space-y-6">
+                            <div className="glass-card p-8">
+                                <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+                                    <Key className="w-5 h-5 text-indigo-500" /> API Keys
+                                </h2>
+                                <div className="space-y-4">
+                                    {[
+                                        { name: 'Production App', key: 'pk_live_49dk...29sk', created: '2026-01-15', status: 'Active' },
+                                        { name: 'Staging Environment', key: 'pk_test_dk39...sk29', created: '2026-01-20', status: 'Active' },
+                                        { name: 'Local Development', key: 'pk_test_92kd...dk92', created: '2026-02-01', status: 'Inactive' },
+                                    ].map((key, i) => (
+                                        <div key={i} className="flex items-center justify-between p-4 bg-white/5 rounded-xl border border-white/5 hover:border-white/10 transition-colors group">
+                                            <div>
+                                                <p className="font-bold text-sm mb-1">{key.name}</p>
+                                                <code className="text-xs text-indigo-300/80 bg-indigo-500/5 px-2 py-1 rounded border border-indigo-500/10">{key.key}</code>
+                                            </div>
+                                            <div className="flex items-center gap-4">
+                                                <span className={`text-[10px] uppercase tracking-widest font-bold ${key.status === 'Active' ? 'text-green-500' : 'text-white/20'}`}>
+                                                    {key.status}
+                                                </span>
+                                                <button className="text-white/40 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                                                    <ExternalLink className="w-4 h-4" />
+                                                </button>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+
+                            {/* Recent Usage */}
+                            <div className="glass-card p-8 text-center py-20">
+                                <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-white/10">
+                                    <BarChart3 className="w-8 h-8 text-white/20" />
+                                </div>
+                                <h2 className="text-xl font-bold mb-2">No recent usage</h2>
+                                <p className="text-white/40 text-sm max-w-xs mx-auto">
+                                    Once you start making API requests, you'll see your detailed capture history here.
                                 </p>
                             </div>
                         </div>
-                        <Link
-                            href="/docs"
-                            className="block bg-gray-700/50 hover:bg-gray-700 text-white font-semibold px-6 py-3 rounded-xl transition-all border border-gray-600 text-center"
-                        >
-                            View Docs
-                        </Link>
-                    </div>
-                </div>
 
-                {/* Recent Activity */}
-                <div className="bg-gray-800/30 rounded-2xl p-8 border border-gray-700/50 mb-12">
-                    <h2 className="text-2xl font-semibold mb-6">Recent Activity</h2>
-                    <div className="text-center py-12">
-                        <div className="text-6xl mb-4">📭</div>
-                        <p className="text-gray-400 text-lg mb-2">No activity yet</p>
-                        <p className="text-gray-500">Your API requests will appear here</p>
-                    </div>
-                </div>
+                        {/* Sidebar/Callouts */}
+                        <div className="space-y-6">
+                            <div className="glass-card p-8 bg-gradient-to-br from-indigo-600/20 to-sky-600/20 border-indigo-500/30">
+                                <h2 className="text-lg font-bold mb-4">Upgrade your plan</h2>
+                                <p className="text-sm text-white/70 mb-6 leading-relaxed">
+                                    You're currently using the **Free Tier**. Upgrade to **Pro** for higher limits, custom fonts, and priority rendering.
+                                </p>
+                                <Link href="/pricing" className="premium-button !py-2.5 !px-5 text-sm flex items-center justify-center gap-2">
+                                    Upgrade Plan <ArrowUpRight className="w-4 h-4" />
+                                </Link>
+                            </div>
 
-                {/* Development Notice */}
-                <div className="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-2xl p-8 border border-blue-500/20">
-                    <div className="flex items-start gap-4">
-                        <div className="text-4xl">🚧</div>
-                        <div>
-                            <h3 className="font-semibold text-xl mb-2">Dashboard Under Development</h3>
-                            <p className="text-gray-300 mb-4">
-                                We're building out the full dashboard experience with API key management,
-                                detailed usage analytics, and billing features. For now, you can use the
-                                free API endpoint without authentication.
-                            </p>
-                            <div className="bg-gray-900/50 rounded-lg p-4 font-mono text-sm">
-                                <div className="text-gray-500 mb-2">// Use the API without authentication (Free tier)</div>
-                                <div className="text-green-400">
-                                    https://your-api.vercel.app/api/screenshot?url=<span className="text-yellow-400">YOUR_URL</span>
-                                </div>
+                            <div className="glass-card p-8 border-white/5 bg-white/2 hover:bg-white/5 transition-colors cursor-pointer group">
+                                <h2 className="text-lg font-bold mb-2 flex items-center gap-2">
+                                    Documentation <ArrowUpRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all -translate-y-1 translate-x-1" />
+                                </h2>
+                                <p className="text-sm text-white/40">
+                                    Read our comprehensive guides on how to integrate SnapOG into your workflow.
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-12 border-t border-white/5 bg-black">
+                <div className="container max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <p className="text-white/20 text-xs">&copy; 2026 SnapOG. All rights reserved.</p>
+                    <div className="flex gap-6 text-white/20 text-xs font-medium">
+                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+                        <Link href="/support" className="hover:text-white transition-colors">Support</Link>
+                    </div>
+                </div>
+            </footer>
+        </main>
     );
 }

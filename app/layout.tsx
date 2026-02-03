@@ -3,20 +3,20 @@ import { ClerkProvider } from '@clerk/nextjs';
 import './globals.css';
 
 export const metadata: Metadata = {
-    title: 'Social Image Generator - إنشاء روابط مع معاينة احترافية',
-    description: 'أنشئ روابط قابلة للمشاركة مع صور معاينة احترافية لمنصات التواصل الاجتماعي',
-    keywords: ['social media', 'og image', 'link preview', 'share', 'سوشيال ميديا', 'معاينة الروابط'],
-    authors: [{ name: 'Social Image Generator' }],
+    title: 'SnapOG - The Ultimate OG Image Engine',
+    description: 'Generate breathtaking social preview images from any URL in milliseconds. Optimized for Facebook, Twitter, and LinkedIn.',
+    keywords: ['SnapOG', 'social media', 'og image', 'link preview', 'share', 'screenshot api', 'developer tools'],
+    authors: [{ name: 'SnapOG' }],
     openGraph: {
         type: 'website',
-        siteName: 'Social Image Generator',
-        title: 'Social Image Generator - إنشاء روابط مع معاينة احترافية',
-        description: 'أنشئ روابط قابلة للمشاركة مع صور معاينة احترافية لمنصات التواصل الاجتماعي',
+        siteName: 'SnapOG',
+        title: 'SnapOG - The Ultimate OG Image Engine',
+        description: 'Generate breathtaking social preview images from any URL in milliseconds.',
     },
     twitter: {
         card: 'summary_large_image',
-        title: 'Social Image Generator',
-        description: 'أنشئ روابط قابلة للمشاركة مع صور معاينة احترافية',
+        title: 'SnapOG',
+        description: 'Generate breathtaking social preview images from any URL in milliseconds.',
     },
     viewport: {
         width: 'device-width',

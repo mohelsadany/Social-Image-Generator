@@ -1,281 +1,187 @@
 import Link from 'next/link';
 import { UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
+import { Camera, Check, HelpCircle } from 'lucide-react';
+
+const tiers = [
+    {
+        name: 'Free',
+        price: '$0',
+        description: 'Perfect for small personal projects.',
+        features: [
+            '100 screenshots / month',
+            'Standard priority',
+            '30-day cache',
+            'Standard support',
+        ],
+        cta: 'Start for free',
+        highlight: false,
+    },
+    {
+        name: 'Starter',
+        price: '$19',
+        description: 'The basics for growing indie makers.',
+        features: [
+            '1,000 screenshots / month',
+            'High priority',
+            '60-day cache',
+            'Email support',
+        ],
+        cta: 'Choose Starter',
+        highlight: false,
+    },
+    {
+        name: 'Pro',
+        price: '$49',
+        description: 'Scale your product with confidence.',
+        features: [
+            '10,000 screenshots / month',
+            'Highest priority',
+            'Unlimited cache',
+            'Priority email support',
+            'Custom fonts & CSS',
+        ],
+        cta: 'Get Pro',
+        highlight: true,
+    },
+    {
+        name: 'Business',
+        price: '$149',
+        description: 'Enterprise grade for heavy workloads.',
+        features: [
+            '50,000 screenshots / month',
+            'Dedicated infrastructure',
+            'Advanced API features',
+            '24/7 Phone support',
+            'SLA guarantee',
+        ],
+        cta: 'Contact Sales',
+        highlight: false,
+    },
+];
+
+const faqs = [
+    {
+        q: "How does the caching work?",
+        a: "We cache every generated image globally. Subsequent requests for the same URL return the cached version instantly without consuming your quota."
+    },
+    {
+        q: "Can I customize the viewport?",
+        a: "Yes, you can customize width, height, and device scale factor via API parameters."
+    },
+    {
+        q: "Do you block cookie banners?",
+        a: "Absolutely. Our engine automatically detects and removes common cookie consent popups and banners for clean screenshots."
+    }
+];
 
 export default function PricingPage() {
-    const tiers = [
-        {
-            name: 'Free',
-            price: '0',
-            period: 'forever',
-            description: 'Perfect for trying out',
-            features: [
-                '100 screenshots/month',
-                '30-day caching',
-                '1200×630 dimensions',
-                'Community support',
-                'Basic analytics',
-            ],
-            cta: 'Get Started',
-            href: '/sign-up',
-            highlighted: false,
-            popular: false,
-        },
-        {
-            name: 'Starter',
-            price: '9',
-            period: 'month',
-            description: 'For small projects',
-            features: [
-                '1,000 screenshots/month',
-                '30-day caching',
-                'Priority processing',
-                'Email support',
-                'Custom dimensions',
-                'Advanced analytics',
-            ],
-            cta: 'Start Free Trial',
-            href: '/sign-up',
-            highlighted: false,
-            popular: false,
-        },
-        {
-            name: 'Pro',
-            price: '29',
-            period: 'month',
-            description: 'For growing businesses',
-            features: [
-                '10,000 screenshots/month',
-                '90-day caching',
-                'Priority processing',
-                'Priority support',
-                'Custom dimensions',
-                'Advanced analytics',
-                'Webhook notifications',
-            ],
-            cta: 'Start Free Trial',
-            href: '/sign-up',
-            highlighted: true,
-            popular: true,
-        },
-        {
-            name: 'Business',
-            price: '99',
-            period: 'month',
-            description: 'For enterprises',
-            features: [
-                'Unlimited screenshots',
-                'Custom caching',
-                'Dedicated support',
-                'SLA guarantee (99.9%)',
-                'Custom dimensions',
-                'Advanced analytics',
-                'White-label option',
-                'Custom integrations',
-            ],
-            cta: 'Contact Sales',
-            href: '/sign-up',
-            highlighted: false,
-            popular: false,
-        },
-    ];
-
     return (
-        <main className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-black text-white">
+        <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
             {/* Navigation */}
-            <nav className="border-b border-gray-800 backdrop-blur-sm bg-gray-950/50 sticky top-0 z-50">
-                <div className="container max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-2">
-                        <div className="text-2xl">📸</div>
-                        <span className="text-xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
-                            Screenshot API
+            <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
+                <div className="container max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+                    <Link href="/" className="flex items-center gap-3 group">
+                        <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center">
+                            <Camera className="w-6 h-6 text-white" />
+                        </div>
+                        <span className="text-xl font-bold tracking-tight premium-gradient-text">
+                            SnapOG
                         </span>
                     </Link>
-                    <div className="flex items-center gap-6">
-                        <Link href="/pricing" className="text-gray-300 hover:text-white transition-colors">
-                            Pricing
-                        </Link>
-                        <Link href="/docs" className="text-gray-300 hover:text-white transition-colors">
-                            Docs
-                        </Link>
+
+                    <div className="flex items-center gap-8">
+                        <Link href="/pricing" className="text-sm font-medium text-white transition-colors">Pricing</Link>
+                        <Link href="/docs" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
                         <SignedOut>
-                            <Link
-                                href="/sign-in"
-                                className="text-gray-300 hover:text-white transition-colors"
-                            >
-                                Sign In
-                            </Link>
-                            <Link
-                                href="/sign-up"
-                                className="bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white px-6 py-2.5 rounded-lg transition-all font-semibold shadow-lg shadow-blue-500/20"
-                            >
-                                Get Started Free
+                            <Link href="/sign-up" className="premium-button !py-2 !px-5 text-sm">
+                                Start Free
                             </Link>
                         </SignedOut>
                         <SignedIn>
-                            <Link
-                                href="/dashboard"
-                                className="text-gray-300 hover:text-white transition-colors"
-                            >
-                                Dashboard
-                            </Link>
+                            <Link href="/dashboard" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Dashboard</Link>
                             <UserButton afterSignOutUrl="/" />
                         </SignedIn>
                     </div>
                 </div>
             </nav>
 
-            <div className="container max-w-7xl mx-auto px-6 py-20">
-                {/* Header */}
-                <div className="text-center mb-20">
-                    <div className="inline-block mb-4">
-                        <span className="bg-blue-500/10 text-blue-400 px-4 py-2 rounded-full text-sm font-semibold border border-blue-500/20">
-                            Simple, Transparent Pricing
-                        </span>
+            <section className="pt-44 pb-32 px-6">
+                <div className="container max-w-6xl mx-auto">
+                    <div className="text-center mb-24">
+                        <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-6 premium-gradient-text">
+                            Simple, scaleable pricing.
+                        </h1>
+                        <p className="text-white/40 max-w-xl mx-auto text-lg leading-relaxed">
+                            Start for free and upgrade as you grow. No hidden fees, cancel anytime.
+                        </p>
                     </div>
-                    <h1 className="text-6xl font-bold mb-6 bg-gradient-to-r from-white via-gray-200 to-gray-400 bg-clip-text text-transparent">
-                        Choose Your Plan
-                    </h1>
-                    <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-                        Start free, upgrade anytime. All plans include our core features with no hidden fees.
-                    </p>
-                </div>
 
-                {/* Pricing Cards */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
-                    {tiers.map((tier, index) => (
-                        <div
-                            key={tier.name}
-                            className={`relative rounded-2xl p-8 transition-all duration-300 hover:scale-105 ${tier.highlighted
-                                    ? 'bg-gradient-to-b from-blue-900/40 to-blue-900/10 border-2 border-blue-500 shadow-2xl shadow-blue-500/20'
-                                    : 'bg-gray-800/40 border border-gray-700/50 hover:border-gray-600'
-                                }`}
-                            style={{
-                                animationDelay: `${index * 100}ms`,
-                            }}
-                        >
-                            {tier.popular && (
-                                <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
-                                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 text-white text-sm px-4 py-1.5 rounded-full font-semibold shadow-lg">
-                                        ⭐ Most Popular
-                                    </span>
-                                </div>
-                            )}
-
-                            <div className="mb-6">
-                                <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
-                                <p className="text-gray-400 text-sm">{tier.description}</p>
-                            </div>
-
-                            <div className="mb-8">
-                                <div className="flex items-baseline gap-2">
-                                    <span className="text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                                        ${tier.price}
-                                    </span>
-                                    <span className="text-gray-400">/{tier.period}</span>
-                                </div>
-                            </div>
-
-                            <ul className="space-y-4 mb-8">
-                                {tier.features.map((feature, i) => (
-                                    <li key={i} className="flex items-start gap-3">
-                                        <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-sm">{feature}</span>
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Link
-                                href={tier.href}
-                                className={`block text-center py-3.5 rounded-xl font-semibold transition-all ${tier.highlighted
-                                        ? 'bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white shadow-lg shadow-blue-500/30'
-                                        : 'bg-gray-700/50 hover:bg-gray-700 text-white border border-gray-600'
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {tiers.map((tier) => (
+                            <div
+                                key={tier.name}
+                                className={`glass-card p-8 flex flex-col transition-all duration-300 ${tier.highlight ? 'border-indigo-500/50 shadow-2xl shadow-indigo-500/10 scale-105 z-10' : 'hover:border-white/20'
                                     }`}
                             >
-                                {tier.cta}
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-
-                {/* Features Comparison */}
-                <div className="mb-20">
-                    <h2 className="text-3xl font-bold mb-10 text-center">All Plans Include</h2>
-                    <div className="grid md:grid-cols-3 gap-8">
-                        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                            <div className="text-4xl mb-4">⚡</div>
-                            <h3 className="text-xl font-semibold mb-2">Lightning Fast</h3>
-                            <p className="text-gray-400">
-                                Edge-optimized infrastructure ensures screenshots are generated in milliseconds
-                            </p>
-                        </div>
-                        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                            <div className="text-4xl mb-4">🔒</div>
-                            <h3 className="text-xl font-semibold mb-2">Secure & Reliable</h3>
-                            <p className="text-gray-400">
-                                Enterprise-grade security with 99.9% uptime SLA on Business plans
-                            </p>
-                        </div>
-                        <div className="bg-gray-800/30 rounded-xl p-6 border border-gray-700/50">
-                            <div className="text-4xl mb-4">📊</div>
-                            <h3 className="text-xl font-semibold mb-2">Detailed Analytics</h3>
-                            <p className="text-gray-400">
-                                Track usage, monitor performance, and optimize your screenshot strategy
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-                {/* FAQ */}
-                <div className="max-w-3xl mx-auto mb-20">
-                    <h2 className="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
-
-                    <div className="space-y-4">
-                        {[
-                            {
-                                q: 'Can I change plans later?',
-                                a: 'Yes! You can upgrade or downgrade your plan at any time. Changes take effect immediately and we\'ll prorate the difference.',
-                            },
-                            {
-                                q: 'What happens if I exceed my limit?',
-                                a: 'Your API will return a rate limit error. You can upgrade your plan instantly or wait until the next billing cycle for your quota to reset.',
-                            },
-                            {
-                                q: 'Do you offer refunds?',
-                                a: 'Yes, we offer a 14-day money-back guarantee on all paid plans. No questions asked.',
-                            },
-                            {
-                                q: 'Is there a free trial?',
-                                a: 'The Free plan is available forever with no credit card required. Paid plans include a 7-day free trial.',
-                            },
-                        ].map((faq, i) => (
-                            <details key={i} className="bg-gray-800/30 rounded-xl border border-gray-700/50 overflow-hidden group">
-                                <summary className="p-6 cursor-pointer font-semibold text-lg hover:bg-gray-800/50 transition-colors">
-                                    {faq.q}
-                                </summary>
-                                <div className="px-6 pb-6 text-gray-300 border-t border-gray-700/50 pt-4">
-                                    {faq.a}
+                                <div className="mb-8">
+                                    <h3 className="text-lg font-bold text-white mb-2">{tier.name}</h3>
+                                    <div className="flex items-baseline gap-1">
+                                        <span className="text-4xl font-bold">{tier.price}</span>
+                                        <span className="text-white/40 text-sm">/mo</span>
+                                    </div>
+                                    <p className="mt-4 text-white/40 text-sm leading-relaxed">{tier.description}</p>
                                 </div>
-                            </details>
+
+                                <ul className="flex-1 space-y-4 mb-10">
+                                    {tier.features.map((feature) => (
+                                        <li key={feature} className="flex items-start gap-3 text-sm text-white/60">
+                                            <Check className="w-5 h-5 text-indigo-500 shrink-0" />
+                                            <span>{feature}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                <Link
+                                    href="/sign-up"
+                                    className={`text-center py-3 rounded-xl font-bold transition-all ${tier.highlight
+                                            ? 'bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 shadow-lg shadow-indigo-500/20'
+                                            : 'bg-white/5 border border-white/10 hover:bg-white/10'
+                                        }`}
+                                >
+                                    {tier.cta}
+                                </Link>
+                            </div>
                         ))}
                     </div>
                 </div>
+            </section>
 
-                {/* CTA */}
-                <div className="text-center bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-2xl p-12 border border-blue-500/20">
-                    <h2 className="text-4xl font-bold mb-4">Ready to get started?</h2>
-                    <p className="text-gray-400 mb-8 text-lg">
-                        Join hundreds of developers using Screenshot API to create beautiful link previews
-                    </p>
-                    <Link
-                        href="/sign-up"
-                        className="inline-block bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 text-white font-semibold px-10 py-4 rounded-xl transition-all text-lg shadow-xl shadow-blue-500/30"
-                    >
-                        Start Free Today →
-                    </Link>
+            {/* FAQ Section */}
+            <section className="py-32 border-t border-white/5 bg-white/5">
+                <div className="container max-w-4xl mx-auto px-6">
+                    <h2 className="text-3xl font-bold text-center mb-16 premium-gradient-text">Frequently Asked Questions</h2>
+                    <div className="space-y-6">
+                        {faqs.map((faq, i) => (
+                            <div key={i} className="glass-card p-8 group transition-all hover:bg-white/[0.07]">
+                                <div className="flex items-start gap-4">
+                                    <HelpCircle className="w-6 h-6 text-indigo-500 shrink-0" />
+                                    <div>
+                                        <h3 className="font-bold mb-2 group-hover:text-indigo-300 transition-colors">{faq.q}</h3>
+                                        <p className="text-white/40 text-sm leading-relaxed">{faq.a}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
                 </div>
-            </div>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-20 border-t border-white/5 bg-black">
+                <div className="container max-w-6xl mx-auto px-6 text-center">
+                    <p className="text-white/20 text-sm">&copy; 2026 SnapOG. All rights reserved.</p>
+                </div>
+            </footer>
         </main>
     );
 }
