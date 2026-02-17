@@ -4,11 +4,14 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { Camera, Key, BarChart3, Clock, ArrowUpRight, Plus, ExternalLink } from "lucide-react";
 
-export default async function DashboardPage() {
+export default async function DashboardPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const l = `/${locale}`;
+
     const user = await currentUser();
 
     if (!user) {
-        redirect("/sign-in");
+        redirect(`${l}/sign-in`);
     }
 
     const firstName = user.firstName || user.emailAddresses[0].emailAddress.split('@')[0];
@@ -18,7 +21,7 @@ export default async function DashboardPage() {
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
                 <div className="container max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href={l} className="flex items-center gap-3 group">
                         <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center">
                             <Camera className="w-6 h-6 text-white" />
                         </div>
@@ -28,9 +31,9 @@ export default async function DashboardPage() {
                     </Link>
 
                     <div className="flex items-center gap-6">
-                        <Link href="/dashboard" className="text-sm font-medium text-white transition-colors">Dashboard</Link>
-                        <Link href="/pricing" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
-                        <UserButton afterSignOutUrl="/" />
+                        <Link href={`${l}/dashboard`} className="text-sm font-medium text-white transition-colors">Dashboard</Link>
+                        <Link href={`${l}/pricing`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
+                        <UserButton afterSignOutUrl={l} />
                     </div>
                 </div>
             </nav>
@@ -61,8 +64,8 @@ export default async function DashboardPage() {
                                         <stat.icon className="w-5 h-5 text-indigo-400" />
                                     </div>
                                     <span className={`text-xs font-bold px-2 py-0.5 rounded-full ${stat.trend.startsWith('+') ? 'text-green-400 bg-green-400/10' :
-                                            stat.trend.startsWith('-') ? 'text-blue-400 bg-blue-400/10' :
-                                                'text-indigo-400 bg-indigo-400/10'
+                                        stat.trend.startsWith('-') ? 'text-blue-400 bg-blue-400/10' :
+                                            'text-indigo-400 bg-indigo-400/10'
                                         }`}>
                                         {stat.trend}
                                     </span>
@@ -123,7 +126,7 @@ export default async function DashboardPage() {
                                 <p className="text-sm text-white/70 mb-6 leading-relaxed">
                                     You're currently using the **Free Tier**. Upgrade to **Pro** for higher limits, custom fonts, and priority rendering.
                                 </p>
-                                <Link href="/pricing" className="premium-button !py-2.5 !px-5 text-sm flex items-center justify-center gap-2">
+                                <Link href={`${l}/pricing`} className="premium-button !py-2.5 !px-5 text-sm flex items-center justify-center gap-2">
                                     Upgrade Plan <ArrowUpRight className="w-4 h-4" />
                                 </Link>
                             </div>
@@ -146,9 +149,9 @@ export default async function DashboardPage() {
                 <div className="container max-w-7xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6">
                     <p className="text-white/20 text-xs">&copy; 2026 SnapOG. All rights reserved.</p>
                     <div className="flex gap-6 text-white/20 text-xs font-medium">
-                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
-                        <Link href="/support" className="hover:text-white transition-colors">Support</Link>
+                        <Link href={`${l}/privacy`} className="hover:text-white transition-colors">Privacy</Link>
+                        <Link href={`${l}/terms`} className="hover:text-white transition-colors">Terms</Link>
+                        <Link href={`${l}/support`} className="hover:text-white transition-colors">Support</Link>
                     </div>
                 </div>
             </footer>

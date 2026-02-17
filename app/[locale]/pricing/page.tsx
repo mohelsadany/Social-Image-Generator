@@ -74,13 +74,16 @@ const faqs = [
     }
 ];
 
-export default function PricingPage() {
+export default async function PricingPage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+    const l = `/${locale}`;
+
     return (
         <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30">
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
                 <div className="container max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href={l} className="flex items-center gap-3 group">
                         <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center">
                             <Camera className="w-6 h-6 text-white" />
                         </div>
@@ -90,16 +93,16 @@ export default function PricingPage() {
                     </Link>
 
                     <div className="flex items-center gap-8">
-                        <Link href="/pricing" className="text-sm font-medium text-white transition-colors">Pricing</Link>
-                        <Link href="/docs" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
+                        <Link href={`${l}/pricing`} className="text-sm font-medium text-white transition-colors">Pricing</Link>
+                        <Link href={`${l}/docs`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
                         <SignedOut>
-                            <Link href="/sign-up" className="premium-button !py-2 !px-5 text-sm">
+                            <Link href={`${l}/sign-up`} className="premium-button !py-2 !px-5 text-sm">
                                 Start Free
                             </Link>
                         </SignedOut>
                         <SignedIn>
-                            <Link href="/dashboard" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Dashboard</Link>
-                            <UserButton afterSignOutUrl="/" />
+                            <Link href={`${l}/dashboard`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">Dashboard</Link>
+                            <UserButton afterSignOutUrl={l} />
                         </SignedIn>
                     </div>
                 </div>
@@ -142,10 +145,10 @@ export default function PricingPage() {
                                 </ul>
 
                                 <Link
-                                    href="/sign-up"
+                                    href={`${l}/sign-up`}
                                     className={`text-center py-3 rounded-xl font-bold transition-all ${tier.highlight
-                                            ? 'bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 shadow-lg shadow-indigo-500/20'
-                                            : 'bg-white/5 border border-white/10 hover:bg-white/10'
+                                        ? 'bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 shadow-lg shadow-indigo-500/20'
+                                        : 'bg-white/5 border border-white/10 hover:bg-white/10'
                                         }`}
                                 >
                                     {tier.cta}

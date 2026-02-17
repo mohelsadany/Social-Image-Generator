@@ -2,7 +2,51 @@ import Link from 'next/link';
 import { UserButton, SignedIn, SignedOut } from '@clerk/nextjs';
 import { Camera, Zap, Shield, BarChart3, Globe, ArrowRight, Code } from 'lucide-react';
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+    const { locale } = await params;
+
+    const content: Record<string, any> = {
+        en: {
+            badge: "New: Edge-ready screenshot engine",
+            title: "The ultimate OG image engine.",
+            desc: "Generate breathtaking social preview images from any URL in milliseconds. Optimized for Facebook, Twitter, and LinkedIn.",
+            cta: "Get started free",
+            docs: "View Documentation",
+            featuresTitle: "Built for heavy lifting.",
+            featuresDesc: "We handle everything from headless browser management to high-quality image compression.",
+            login: "Login",
+            pricing: "Pricing",
+            dashboard: "Dashboard"
+        },
+        ar: {
+            badge: "جديد: محرك لقطات شاشة جاهز للحافة",
+            title: "محرك صور OG النهائي.",
+            desc: "قم بإنشاء صور معاينة اجتماعية مذهلة من أي عنوان URL في أجزاء من الثانية. مُحسّن لفيسبوك وتويتر ولينكد إن.",
+            cta: "ابدأ مجانًا",
+            docs: "عرض التوثيق",
+            featuresTitle: "بني للأحمال الثقيلة.",
+            featuresDesc: "نحن نتعامل مع كل شيء من إدارة المتصفح بدون واجهة إلى ضغط الصور عالي الجودة.",
+            login: "تسجيل الدخول",
+            pricing: "الأسعار",
+            dashboard: "لوحة التحكم"
+        },
+        fr: {
+            badge: "Nouveau : Moteur de capture d'écran prêt pour l'Edge",
+            title: "Le moteur d'images OG ultime.",
+            desc: "Générez des images de prévisualisation sociale époustouflantes à partir de n'importe quelle URL en quelques millisecondes. Optimisé pour Facebook, Twitter et LinkedIn.",
+            cta: "Commencer gratuitement",
+            docs: "Voir la documentation",
+            featuresTitle: "Conçu pour les charges lourdes.",
+            featuresDesc: "Nous gérons tout, de la gestion du navigateur headless à la compression d'image de haute qualité.",
+            login: "Connexion",
+            pricing: "Tarifs",
+            dashboard: "Tableau de bord"
+        }
+    };
+
+    const t = content[locale] || content.en;
+    const l = `/${locale}`;
+
     return (
         <main className="min-h-screen bg-black text-white selection:bg-indigo-500/30 overflow-x-hidden">
             {/* Background Decorative Elements */}
@@ -14,7 +58,7 @@ export default function HomePage() {
             {/* Navigation */}
             <nav className="fixed top-0 left-0 right-0 z-50 border-b border-white/5 bg-black/50 backdrop-blur-xl">
                 <div className="container max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
-                    <Link href="/" className="flex items-center gap-3 group">
+                    <Link href={l} className="flex items-center gap-3 group">
                         <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110">
                             <Camera className="w-6 h-6 text-white" />
                         </div>
@@ -24,18 +68,18 @@ export default function HomePage() {
                     </Link>
 
                     <div className="hidden md:flex items-center gap-8">
-                        <Link href="/pricing" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Pricing</Link>
-                        <Link href="/docs" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
+                        <Link href={`${l}/pricing`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">{t.pricing}</Link>
+                        <Link href={`${l}/docs`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">Docs</Link>
                         <div className="h-4 w-px bg-white/10 mx-2"></div>
                         <SignedOut>
-                            <Link href="/sign-in" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Login</Link>
-                            <Link href="/sign-up" className="premium-button !py-2 !px-5 text-sm">
-                                Start Free
+                            <Link href={`${l}/sign-in`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">{t.login}</Link>
+                            <Link href={`${l}/sign-up`} className="premium-button !py-2 !px-5 text-sm">
+                                {t.cta}
                             </Link>
                         </SignedOut>
                         <SignedIn>
-                            <Link href="/dashboard" className="text-sm font-medium text-white/60 hover:text-white transition-colors">Dashboard</Link>
-                            <UserButton afterSignOutUrl="/" />
+                            <Link href={`${l}/dashboard`} className="text-sm font-medium text-white/60 hover:text-white transition-colors">{t.dashboard}</Link>
+                            <UserButton afterSignOutUrl={l} />
                         </SignedIn>
                     </div>
                 </div>
@@ -49,29 +93,28 @@ export default function HomePage() {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
                             <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
                         </span>
-                        New: Edge-ready screenshot engine
+                        {t.badge}
                     </div>
 
                     <h1 className="text-6xl md:text-8xl font-bold tracking-tight mb-8 leading-[0.9] premium-gradient-text">
-                        The ultimate OG image engine.
+                        {t.title}
                     </h1>
 
                     <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-12 leading-relaxed">
-                        Generate breathtaking social preview images from any URL in milliseconds.
-                        Optimized for Facebook, Twitter, and LinkedIn.
+                        {t.desc}
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-24">
-                        <Link href="/sign-up" className="premium-button text-lg flex items-center gap-2 w-full sm:w-auto">
-                            Get started free <ArrowRight className="w-5 h-5" />
+                        <Link href={`${l}/sign-up`} className="premium-button text-lg flex items-center gap-2 w-full sm:w-auto">
+                            {t.cta} <ArrowRight className="w-5 h-5 rtl:rotate-180" />
                         </Link>
-                        <Link href="/docs" className="px-8 py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-semibold w-full sm:w-auto">
-                            View Documentation
+                        <Link href={`${l}/docs`} className="px-8 py-3.5 rounded-xl border border-white/10 bg-white/5 hover:bg-white/10 transition-all font-semibold w-full sm:w-auto">
+                            {t.docs}
                         </Link>
                     </div>
 
                     {/* App Preview Container */}
-                    <div className="relative mx-auto mt-12 group">
+                    <div className="relative mx-auto mt-12 group" dir="ltr">
                         <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 to-sky-500 rounded-[2.5rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
                         <div className="relative glass-card !rounded-[2rem] p-4 bg-black/60 shadow-2xl">
                             <div className="border border-white/10 rounded-[1.5rem] overflow-hidden bg-white/5 p-6 md:p-12 text-left">
@@ -122,10 +165,10 @@ export default function HomePage() {
                 <div className="container max-w-6xl mx-auto px-6">
                     <div className="text-center mb-24">
                         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4 premium-gradient-text">
-                            Built for heavy lifting.
+                            {t.featuresTitle}
                         </h2>
                         <p className="text-white/40 max-w-xl mx-auto">
-                            We handle everything from headless browser management to high-quality image compression.
+                            {t.featuresDesc}
                         </p>
                     </div>
 
@@ -172,27 +215,10 @@ export default function HomePage() {
                 </div>
             </section>
 
-            {/* Testimonial / Social Proof */}
-            <section className="py-24 bg-white/5 border-y border-white/5">
-                <div className="container max-w-4xl mx-auto px-6 text-center">
-                    <p className="text-2xl italic font-serif text-white/80 mb-8 leading-relaxed">
-                        &quot;SnapOG has completely transformed how our team handles link previews.
-                        The reliability and speed are unmatched in the industry.&quot;
-                    </p>
-                    <div className="flex items-center justify-center gap-4">
-                        <div className="w-12 h-12 rounded-full bg-gradient-to-br from-indigo-500 to-sky-500"></div>
-                        <div className="text-left">
-                            <p className="font-bold text-sm">Sarah Chen</p>
-                            <p className="text-white/40 text-xs uppercase tracking-widest font-semibold">CTO at TechFlow</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             {/* Footer */}
             <footer className="py-20 border-t border-white/5 bg-black">
                 <div className="container max-w-6xl mx-auto px-6 text-center">
-                    <Link href="/" className="inline-flex items-center gap-3 mb-8">
+                    <Link href={l} className="inline-flex items-center gap-3 mb-8">
                         <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-sky-500 rounded-lg flex items-center justify-center">
                             <Camera className="w-5 h-5 text-white" />
                         </div>
@@ -200,8 +226,8 @@ export default function HomePage() {
                     </Link>
                     <p className="text-white/20 text-sm mb-8">&copy; 2026 SnapOG. All rights reserved.</p>
                     <div className="flex justify-center gap-8 text-white/40 text-sm font-medium">
-                        <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
-                        <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
+                        <Link href={`${l}/privacy`} className="hover:text-white transition-colors">Privacy</Link>
+                        <Link href={`${l}/terms`} className="hover:text-white transition-colors">Terms</Link>
                         <Link href="mailto:support@snapog.com" className="hover:text-white transition-colors">Contact</Link>
                     </div>
                 </div>
