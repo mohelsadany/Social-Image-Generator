@@ -8,7 +8,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     const content: Record<string, any> = {
         en: {
             badge: "New: Edge-ready screenshot engine",
-            title: "The ultimate OG image engine.",
+            title: "The Next-Gen OG Image Engine.",
             desc: "Generate breathtaking social preview images from any URL in milliseconds. Optimized for Facebook, Twitter, and LinkedIn.",
             cta: "Get started free",
             docs: "View Documentation",
@@ -20,7 +20,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         },
         ar: {
             badge: "جديد: محرك لقطات شاشة جاهز للحافة",
-            title: "محرك صور OG النهائي.",
+            title: "محرك صور OG الأسرع والذكي.",
             desc: "قم بإنشاء صور معاينة اجتماعية مذهلة من أي عنوان URL في أجزاء من الثانية. مُحسّن لفيسبوك وتويتر ولينكد إن.",
             cta: "ابدأ مجانًا",
             docs: "عرض التوثيق",
